@@ -1,3 +1,3 @@
-# angular-10-signup-verification-boilerplate
+# benedicto-scheduling-thesis
 
-Angular 10 Boilerplate - Email Sign Up with Verification, Authentication & Forgot Password
+Angular 10 - Benedicto College Scheduling System

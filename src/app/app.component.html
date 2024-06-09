@@ -1,20 +1,56 @@
-﻿<div class="app-container" [ngClass]="{ 'bg-light': account }">
-    <!-- main nav -->
-    <nav class="navbar navbar-expand navbar-dark bg-dark" *ngIf="account">
-        <div class="navbar-nav">
-            <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="nav-item nav-link">Home</a>
-            <a routerLink="/profile" routerLinkActive="active" class="nav-item nav-link">Profile</a>
-            <a *ngIf="account.role === Role.Admin" routerLink="/admin" routerLinkActive="active" class="nav-item nav-link">Admin</a>
-            <a (click)="logout()" class="nav-item nav-link">Logout</a>
-        </div>
-    </nav>
+﻿<div class="app-container">
+  <!-- main nav -->
+  <nav
+    class="navbar navbar-expand"
+    *ngIf="account"
+    style="display: flex; justify-content: space-between; align-items: center"
+  >
+    <div class="navbar-nav" style="display: flex; align-items: center">
+      <img
+        src="
+      https://benedicto.octanity.net/lms/pluginfile.php/1/core_admin/logocompact/300x300/1707970871/bc_logo.jpeg"
+        alt=""
+        style="width: 45px; height: 45px; margin-right: 1.5rem"
+      />
+      <a
+        routerLink="/"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        class="nav-item nav-link"
+        >Home</a
+      >
+      <a
+        routerLink="/profile"
+        routerLinkActive="active"
+        class="nav-item nav-link"
+        >Profile</a
+      >
+      <a
+        *ngIf="account.role === Role.Admin"
+        routerLink="/admin"
+        routerLinkActive="active"
+        class="nav-item nav-link"
+        >Admin</a
+      >
+      <a
+        *ngIf="account.role === Role.Admin"
+        routerLink="/schedule"
+        routerLinkActive="active"
+        class="nav-item nav-link"
+        >Schedule</a
+      >
+    </div>
+    <div class="navbar-nav">
+      <a (click)="logout()" class="nav-item nav-link">Logout</a>
+    </div>
+  </nav>
 
-    <!-- subnav router outlet -->
-    <router-outlet name="subnav"></router-outlet>
+  <!-- subnav router outlet -->
+  <router-outlet name="subnav"></router-outlet>
 
-    <!-- global alert -->
-    <alert></alert>
+  <!-- global alert -->
+  <alert></alert>
 
-    <!-- main router outlet -->
-    <router-outlet></router-outlet>
+  <!-- main router outlet -->
+  <router-outlet></router-outlet>
 </div>

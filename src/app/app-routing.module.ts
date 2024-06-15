@@ -2,9 +2,13 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { HomeComponent } from './home';
-import { SchedComponent } from './schedule';
+// import { SchedComponent } from './schedule';
 import { AuthGuard } from './_helpers';
 import { Role } from './_models';
+import { firstSchedComponent } from './schedule/1stYear';
+import { secondSchedComponent } from './schedule/2ndYear';
+import { thirdSchedComponent } from './schedule/3rdYear';
+import { fourthSchedComponent } from './schedule/4thYear';
 
 const accountModule = () =>
   import('./account/account.module').then((x) => x.AccountModule);
@@ -24,9 +28,30 @@ const routes: Routes = [
     data: { roles: [Role.Admin] },
   },
   {
-    path: 'schedule',
+    path: 'schedule/1stYear',
     loadChildren: adminModule,
-    component: SchedComponent,
+    component: firstSchedComponent,
+    canActivate: [AuthGuard],
+    data: { roles: [Role.Admin] },
+  },
+  {
+    path: 'schedule/2ndYear',
+    loadChildren: adminModule,
+    component: secondSchedComponent,
+    canActivate: [AuthGuard],
+    data: { roles: [Role.Admin] },
+  },
+  {
+    path: 'schedule/3rdYear',
+    loadChildren: adminModule,
+    component: thirdSchedComponent,
+    canActivate: [AuthGuard],
+    data: { roles: [Role.Admin] },
+  },
+  {
+    path: 'schedule/4thYear',
+    loadChildren: adminModule,
+    component: fourthSchedComponent,
     canActivate: [AuthGuard],
     data: { roles: [Role.Admin] },
   },

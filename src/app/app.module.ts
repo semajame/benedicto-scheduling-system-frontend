@@ -12,27 +12,43 @@ import { AccountService } from './_services';
 import { AppComponent } from './app.component';
 import { AlertComponent } from './_components';
 import { HomeComponent } from './home';
+import { jqxSchedulerModule } from 'jqwidgets-ng/jqxscheduler';
+// import { SchedComponent } from './schedule/';
+import { firstSchedComponent } from './schedule/1stYear';
+import { secondSchedComponent } from './schedule/2ndYear';
+import { thirdSchedComponent } from './schedule/3rdYear';
+import { fourthSchedComponent } from './schedule/4thYear';
 
 @NgModule({
-    imports: [
-        BrowserModule,
-        ReactiveFormsModule,
-        HttpClientModule,
-        AppRoutingModule
-    ],
-    declarations: [
-        AppComponent,
-        AlertComponent,
-        HomeComponent
-    ],
-    providers: [
-        { provide: APP_INITIALIZER, useFactory: appInitializer, multi: true, deps: [AccountService] },
-        { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
-        { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+  imports: [
+    BrowserModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    AppRoutingModule,
+    jqxSchedulerModule,
+  ],
+  declarations: [
+    AppComponent,
+    AlertComponent,
+    HomeComponent,
+    firstSchedComponent,
+    secondSchedComponent,
+    thirdSchedComponent,
+    fourthSchedComponent,
+  ],
+  providers: [
+    {
+      provide: APP_INITIALIZER,
+      useFactory: appInitializer,
+      multi: true,
+      deps: [AccountService],
+    },
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
 
-        // provider used to create fake backend
-        // fakeBackendProvider
-    ],
-    bootstrap: [AppComponent]
+    // provider used to create fake backend
+    // fakeBackendProvider
+  ],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

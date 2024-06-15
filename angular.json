@@ -28,6 +28,7 @@
               "src/assets"
             ],
             "styles": [
+              "./node_modules/jqwidgets-ng/jqwidgets/styles/jqx.base.css",
               "src/styles.less"
             ],
             "scripts": []
@@ -92,6 +93,7 @@
               "src/assets"
             ],
             "styles": [
+              "./node_modules/jqwidgets-ng/jqwidgets/styles/jqx.base.css",
               "src/styles.less"
             ],
             "scripts": []

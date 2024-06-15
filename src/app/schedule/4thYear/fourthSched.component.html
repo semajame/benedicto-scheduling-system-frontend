@@ -1,0 +1,22 @@
+<div class="pt-4 px-4">
+  <div class="container">
+    <h1>4th Year Schedule</h1>
+    <p>This section can only be accessed by administrators.</p>
+  </div>
+</div>
+<jqxScheduler
+  #schedulerReference
+  [date]="date"
+  [width]="1300"
+  [height]="600"
+  [source]="dataAdapter"
+  [showLegend]="true"
+  [view]="'weekView'"
+  [appointmentDataFields]="appointmentDataFields"
+  [resources]="resources"
+  [views]="views"
+  [enableHover]="false"
+  [editDialogCreate]="editDialogCreate"
+  style="margin: 2rem auto"
+>
+</jqxScheduler>

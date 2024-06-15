@@ -1,7 +1,7 @@
 ﻿<div class="app-container">
   <!-- main nav -->
   <nav
-    class="navbar navbar-expand"
+    class="navbar navbar-expand m-2"
     *ngIf="account"
     style="display: flex; justify-content: space-between; align-items: center"
   >
@@ -32,13 +32,65 @@
         class="nav-item nav-link"
         >Admin</a
       >
-      <a
+      <div class="dropdown ml-2" *ngIf="account.role === Role.Admin">
+        <button
+          class="btn btn-primary dropdown-toggle"
+          type="button"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+        >
+          Schedule
+        </button>
+        <ul class="dropdown-menu">
+          <li>
+            <a
+              class="dropdown-item"
+              *ngIf="account.role === Role.Admin"
+              routerLink="/schedule/1stYear"
+              routerLinkActive="active"
+              class="nav-item nav-link"
+              >1st Year</a
+            >
+          </li>
+          <li>
+            <a
+              class="dropdown-item"
+              *ngIf="account.role === Role.Admin"
+              routerLink="/schedule/2ndYear"
+              routerLinkActive="active"
+              class="nav-item nav-link"
+              >2nd Year</a
+            >
+          </li>
+          <li>
+            <a
+              class="dropdown-item"
+              *ngIf="account.role === Role.Admin"
+              routerLink="/schedule/3rdYear"
+              routerLinkActive="active"
+              class="nav-item nav-link"
+              >3rd Year</a
+            >
+          </li>
+          <li>
+            <a
+              class="dropdown-item"
+              *ngIf="account.role === Role.Admin"
+              routerLink="/schedule/4thYear"
+              routerLinkActive="active"
+              class="nav-item nav-link"
+              >4th Year</a
+            >
+          </li>
+        </ul>
+      </div>
+      <!-- <a
         *ngIf="account.role === Role.Admin"
         routerLink="/schedule"
         routerLinkActive="active"
         class="nav-item nav-link"
         >Schedule</a
-      >
+      > -->
     </div>
     <div class="navbar-nav">
       <a (click)="logout()" class="nav-item nav-link">Logout</a>

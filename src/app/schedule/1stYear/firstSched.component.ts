@@ -1,6 +1,7 @@
 import { Component, ViewChild, AfterViewInit } from '@angular/core';
 
 import { jqxSchedulerComponent } from 'jqwidgets-ng/jqxscheduler';
+import { SharedService } from 'src/app/shared.service';
 
 @Component({
   templateUrl: 'firstSched.component.html',
@@ -8,7 +9,11 @@ import { jqxSchedulerComponent } from 'jqwidgets-ng/jqxscheduler';
 export class firstSchedComponent implements AfterViewInit {
   @ViewChild('schedulerReference', { static: false })
   scheduler: jqxSchedulerComponent;
-  ngAfterViewInit(): void {}
+  constructor(private sharedService: SharedService) {}
+
+  ngAfterViewInit(): void {
+    this.sharedService.scheduler = this.scheduler;
+  }
 
   // generateAppointments(): any {
   //   let appointments = new Array();
@@ -61,11 +66,11 @@ export class firstSchedComponent implements AfterViewInit {
     console.log(fields);
 
     fields.allDayContainer.hide();
-
     fields.descriptionContainer.hide();
     fields.colorContainer.hide();
     fields.statusContainer.hide();
     fields.timeZoneContainer.hide();
+    fields.repeatContainer.hide();
 
     let customContainer1 = '<div style:"display: block;>';
     customContainer1 +=
@@ -73,7 +78,7 @@ export class firstSchedComponent implements AfterViewInit {
     customContainer1 +=
       "<div class='jqx-scheduler-edit-dialog-field'><table width='100%'border='0' cellspacing='0' cellpadding='0' ><tr><td width='90%'><input id='custom1'type='number' maxlength='3' minlength='1'></input ></td><td width='10%' align='right'></td></tr></table> </div>";
     customContainer1 += '</div>';
-    fields.repeatContainer.append(customContainer1);
+    fields.locationContainer.append(customContainer1);
 
     let customContainer2 = '<div>';
     customContainer2 +=
@@ -81,12 +86,6 @@ export class firstSchedComponent implements AfterViewInit {
     customContainer2 +=
       "<div class='jqx-scheduler-edit-dialog-field'><input id='custom2'></input></div>";
     customContainer2 += '</div>';
-    fields.repeatContainer.append(customContainer2);
-  };
-
-  closeDialogOnNavClick = () => {
-    if (this.scheduler) {
-      this.scheduler.closeDialog();
-    }
+    fields.locationContainer.append(customContainer2);
   };
 }

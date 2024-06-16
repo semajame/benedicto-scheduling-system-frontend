@@ -15,7 +15,7 @@
       <a
         routerLink="/"
         routerLinkActive="active"
-        (click)="firstSchedComponent.closeDialogOnNavClick()"
+        (click)="sharedService.closeDialogOnNavClick()"
         [routerLinkActiveOptions]="{ exact: true }"
         class="nav-item nav-link"
         >Home</a
@@ -23,7 +23,7 @@
       <a
         routerLink="/profile"
         routerLinkActive="active"
-        (click)="firstSchedComponent.closeDialogOnNavClick()"
+        (click)="sharedService.closeDialogOnNavClick()"
         class="nav-item nav-link"
         >Profile</a
       >
@@ -31,7 +31,7 @@
         *ngIf="account.role === Role.Admin"
         routerLink="/admin"
         routerLinkActive="active"
-        (click)="firstSchedComponent.closeDialogOnNavClick()"
+        (click)="sharedService.closeDialogOnNavClick()"
         class="nav-item nav-link"
         >Admin</a
       >

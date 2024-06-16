@@ -17,6 +17,9 @@
   [views]="views"
   [enableHover]="false"
   [editDialogCreate]="editDialogCreate"
+  (editDialogCreate)="
+    editDialogCreate($event.dialog, $event.fields, $event.appointment)
+  "
   style="margin: 2rem auto"
 >
 </jqxScheduler>

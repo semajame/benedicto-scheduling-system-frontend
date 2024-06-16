@@ -46,33 +46,21 @@ export class fourthSchedComponent implements AfterViewInit {
   views: any[] = [
     {
       type: 'dayView',
-      showAllDayAppointments: false,
       timeRuler: { hidden: false, scaleStartHour: 6 },
-      showAllDay: false,
     },
     {
       type: 'weekView',
-      showAllDayAppointments: false,
       timeRuler: { hidden: false, scaleStartHour: 6 },
-      showAllDay: false,
     },
-    { type: 'monthView', showAllDayAppointments: false },
+    { type: 'monthView' },
   ];
 
   editDialogCreate = (dialog, fields, editAppointment) => {
     // Hide the 'Repeat' field
+    fields.repeatContainer.hide();
     fields.allDayContainer.hide();
     fields.colorContainer.hide();
     fields.statusContainer.hide();
     fields.timeZoneContainer.hide();
   };
-
-  // editDialogOpen = (dialog, fields, editAppointment) => {
-  //   // Additional customizations when the dialog opens (if needed)
-
-  //   fields.allDayContainer.hide();
-  //   fields.colorContainer.hide();
-  //   fields.statusContainer.hide();
-  //   fields.timeZoneContainer.hide();
-  // };
 }

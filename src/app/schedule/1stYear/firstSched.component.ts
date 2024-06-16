@@ -6,8 +6,8 @@ import { jqxSchedulerComponent } from 'jqwidgets-ng/jqxscheduler';
   templateUrl: 'firstSched.component.html',
 })
 export class firstSchedComponent implements AfterViewInit {
-  @ViewChild('schedulerReference') scheduler: jqxSchedulerComponent;
-
+  @ViewChild('schedulerReference', { static: false })
+  scheduler: jqxSchedulerComponent;
   ngAfterViewInit(): void {}
 
   // generateAppointments(): any {
@@ -46,33 +46,47 @@ export class firstSchedComponent implements AfterViewInit {
   views: any[] = [
     {
       type: 'dayView',
-      showAllDayAppointments: false,
       timeRuler: { hidden: false, scaleStartHour: 6 },
-      showAllDay: false,
     },
     {
       type: 'weekView',
-      showAllDayAppointments: false,
       timeRuler: { hidden: false, scaleStartHour: 6 },
       showAllDay: false,
     },
-    { type: 'monthView', showAllDayAppointments: false },
+    { type: 'monthView' },
   ];
 
   editDialogCreate = (dialog, fields, editAppointment) => {
     // Hide the 'Repeat' field
+    console.log(fields);
+
     fields.allDayContainer.hide();
+
+    fields.descriptionContainer.hide();
     fields.colorContainer.hide();
     fields.statusContainer.hide();
     fields.timeZoneContainer.hide();
+
+    let customContainer1 = '<div style:"display: block;>';
+    customContainer1 +=
+      "<div class='jqx-scheduler-edit-dialog-label'>Units</div>";
+    customContainer1 +=
+      "<div class='jqx-scheduler-edit-dialog-field'><table width='100%'border='0' cellspacing='0' cellpadding='0' ><tr><td width='90%'><input id='custom1'type='number' maxlength='3' minlength='1'></input ></td><td width='10%' align='right'></td></tr></table> </div>";
+    customContainer1 += '</div>';
+    fields.repeatContainer.append(customContainer1);
+
+    let customContainer2 = '<div>';
+    customContainer2 +=
+      "<div class='jqx-scheduler-edit-dialog-label'>Sub Code</div>";
+    customContainer2 +=
+      "<div class='jqx-scheduler-edit-dialog-field'><input id='custom2'></input></div>";
+    customContainer2 += '</div>';
+    fields.repeatContainer.append(customContainer2);
   };
 
-  // editDialogOpen = (dialog, fields, editAppointment) => {
-  //   // Additional customizations when the dialog opens (if needed)
-
-  //   fields.allDayContainer.hide();
-  //   fields.colorContainer.hide();
-  //   fields.statusContainer.hide();
-  //   fields.timeZoneContainer.hide();
-  // };
+  closeDialogOnNavClick = () => {
+    if (this.scheduler) {
+      this.scheduler.closeDialog();
+    }
+  };
 }

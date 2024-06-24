@@ -1,5 +1,4 @@
 import { Component, ViewChild, AfterViewInit } from '@angular/core';
-
 import { jqxSchedulerComponent } from 'jqwidgets-ng/jqxscheduler';
 import { SharedService } from 'src/app/shared.service';
 
@@ -7,45 +6,131 @@ import { SharedService } from 'src/app/shared.service';
   templateUrl: 'firstSched.component.html',
 })
 export class firstSchedComponent implements AfterViewInit {
-  @ViewChild('schedulerReference', { static: false })
+  @ViewChild('schedulerReference')
   scheduler: jqxSchedulerComponent;
   constructor(private sharedService: SharedService) {}
 
   ngAfterViewInit(): void {
     this.sharedService.scheduler = this.scheduler;
+    this.scheduler.ensureAppointmentVisible('1');
   }
 
-  // generateAppointments(): any {
-  //   let appointments = new Array();
-  // }
+  generateAppointments(): any {
+    this.sharedService.getSchedules().subscribe(
+      (data) => {
+        this.source.localdata = data.map((event) => ({
+          id: event.id,
+          subject_code: event.subject_code,
+          subject: event.subject,
+          units: event.units,
+          location: event.location,
+          start: new Date(event.start),
+          end: new Date(event.end),
+        }));
+
+        console.log(this.source.localdata);
+        return this.source.localdata;
+      },
+      (error) => {
+        console.error('Error loading schedules:', error);
+      }
+    );
+  }
+
   source: any = {
-    dataType: 'json',
+    dataType: 'array',
+    localdata: this.generateAppointments(),
     dataFields: [
       { name: 'id', type: 'string' },
-      { name: 'description', type: 'string' },
-      { name: 'location', type: 'string' },
       { name: 'subject', type: 'string' },
-      { name: 'calendar', type: 'string' },
+      { name: 'subject_code', type: 'string' },
+      { name: 'units', type: 'string' },
+      { name: 'location', type: 'string' },
       { name: 'start', type: 'date' },
       { name: 'end', type: 'date' },
     ],
     id: 'id',
   };
+
+  appointmentDataFields: any = {
+    id: 'id',
+    subject: 'subject',
+    subject_code: 'subject_code',
+    units: 'units',
+    location: 'location',
+    from: 'start',
+    to: 'end',
+  };
+
+  AppointmentAdd(event: any): void {
+    const appointment = event.args.appointment.originalData;
+
+    // const subject_code = $('#subjectCode').val();
+    // const units = $('#units').val();
+    const subject_code = $('#subjectCode').val();
+    const units = $('#units').val();
+
+    const newAppointment = {
+      subject_code: subject_code,
+      subject: appointment.subject,
+      units: units,
+      location: appointment.location,
+      start: new Date(appointment.start),
+      end: new Date(appointment.end),
+    };
+
+    this.sharedService.addSchedule(newAppointment).subscribe(
+      (response) => {
+        appointment.id = response.id;
+        this.source.localdata.push(appointment);
+        this.scheduler.source(this.dataAdapter);
+      },
+      (error) => console.error('Error adding schedule:', error)
+    );
+  }
+
+  editDialogCreate = (dialog, fields, editAppointment) => {
+    let subjectCodeContainer = `
+      <div>
+        <div class='jqx-scheduler-edit-dialog-label'>Subject Code</div>
+        <div class='jqx-scheduler-edit-dialog-field'>
+          <input id='subjectCode' width='100%' />
+        </div>
+      </div>`;
+    fields.subjectContainer.append(subjectCodeContainer);
+
+    let unitsContainer = `
+      <div>
+        <div class='jqx-scheduler-edit-dialog-label'>Units</div>
+        <div class='jqx-scheduler-edit-dialog-field'>
+          <input id='units' type='number' min='1' max='3' width='100%' />
+        </div>
+      </div>`;
+    fields.subjectContainer.append(unitsContainer);
+  };
+
+  editDialogOpen = (dialog, fields, editAppointment) => {
+    fields.repeatContainer.hide();
+    fields.descriptionContainer.hide();
+
+    fields.statusContainer.hide();
+    fields.timeZoneContainer.hide();
+    fields.allDayContainer.hide();
+    fields.locationLabel.html('Location');
+
+    if (editAppointment) {
+      const appointmentData = editAppointment.originalData;
+      $('#subjectCode').val(appointmentData.subject_code);
+      $('#units').val(appointmentData.units);
+    }
+  };
+
   dataAdapter: any = new jqx.dataAdapter(this.source);
   date: any = new jqx.date();
 
-  appointmentDataFields: any = {
-    from: 'start',
-    to: 'end',
-    id: 'id',
-    description: 'description',
-    location: 'location',
-    subject: 'subject',
-    resourceId: 'calendar',
-  };
   resources: any = {
-    colorScheme: 'scheme03',
-    dataField: 'calendar',
+    colorScheme: 'scheme05',
+    dataField: 'subject_code',
     source: new jqx.dataAdapter(this.source),
   };
   views: any[] = [
@@ -56,36 +141,11 @@ export class firstSchedComponent implements AfterViewInit {
     {
       type: 'weekView',
       timeRuler: { hidden: false, scaleStartHour: 6 },
-      showAllDay: false,
+      allDay: false,
     },
-    { type: 'monthView' },
+    {
+      type: 'monthView',
+      timeRuler: { hidden: false, scaleStartHour: 6 },
+    },
   ];
-
-  editDialogCreate = (dialog, fields, editAppointment) => {
-    // Hide the 'Repeat' field
-    console.log(fields);
-
-    fields.allDayContainer.hide();
-    fields.descriptionContainer.hide();
-    fields.colorContainer.hide();
-    fields.statusContainer.hide();
-    fields.timeZoneContainer.hide();
-    fields.repeatContainer.hide();
-
-    let customContainer1 = '<div style:"display: block;>';
-    customContainer1 +=
-      "<div class='jqx-scheduler-edit-dialog-label'>Units</div>";
-    customContainer1 +=
-      "<div class='jqx-scheduler-edit-dialog-field'><table width='100%'border='0' cellspacing='0' cellpadding='0' ><tr><td width='90%'><input id='custom1'type='number' maxlength='3' minlength='1'></input ></td><td width='10%' align='right'></td></tr></table> </div>";
-    customContainer1 += '</div>';
-    fields.locationContainer.append(customContainer1);
-
-    let customContainer2 = '<div>';
-    customContainer2 +=
-      "<div class='jqx-scheduler-edit-dialog-label'>Sub Code</div>";
-    customContainer2 +=
-      "<div class='jqx-scheduler-edit-dialog-field'><input id='custom2'></input></div>";
-    customContainer2 += '</div>';
-    fields.locationContainer.append(customContainer2);
-  };
 }

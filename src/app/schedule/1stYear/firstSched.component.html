@@ -15,11 +15,9 @@
   [appointmentDataFields]="appointmentDataFields"
   [resources]="resources"
   [views]="views"
-  [enableHover]="false"
+  (onAppointmentAdd)="AppointmentAdd($event)"
   [editDialogCreate]="editDialogCreate"
-  (editDialogCreate)="
-    editDialogCreate($event.dialog, $event.fields, $event.appointment)
-  "
+  [editDialogOpen]="editDialogOpen"
   style="margin: 2rem auto"
 >
 </jqxScheduler>

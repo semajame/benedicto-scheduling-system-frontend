@@ -10,7 +10,8 @@
 # dependencies
 /node_modules
 
-#angular cache
+#angular
+
 .angular
 
 # profiling files

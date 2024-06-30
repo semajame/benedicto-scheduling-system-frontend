@@ -23,10 +23,7 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "aot": true,
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ],
+            "assets": ["src/favicon.ico", "src/assets"],
             "styles": [
               "./node_modules/jqwidgets-ng/jqwidgets/styles/jqx.base.css",
               "src/styles.less"
@@ -67,18 +64,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "angular-signup-verification-boilerplate:build"
+            "buildTarget": "angular-signup-verification-boilerplate:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "angular-signup-verification-boilerplate:build:production"
+              "buildTarget": "angular-signup-verification-boilerplate:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "angular-signup-verification-boilerplate:build"
+            "buildTarget": "angular-signup-verification-boilerplate:build"
           }
         },
         "test": {
@@ -88,10 +85,7 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ],
+            "assets": ["src/favicon.ico", "src/assets"],
             "styles": [
               "./node_modules/jqwidgets-ng/jqwidgets/styles/jqx.base.css",
               "src/styles.less"
@@ -107,9 +101,7 @@
               "tsconfig.spec.json",
               "e2e/tsconfig.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         },
         "e2e": {
@@ -125,7 +117,8 @@
           }
         }
       }
-    }},
+    }
+  },
   "defaultProject": "angular-signup-verification-boilerplate",
   "cli": {
     "analytics": "2781d639-51f6-4ac7-a676-33abbd49e5e6"

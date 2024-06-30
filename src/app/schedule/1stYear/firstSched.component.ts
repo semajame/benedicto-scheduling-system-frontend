@@ -11,8 +11,8 @@ export class firstSchedComponent implements AfterViewInit {
   constructor(private sharedService: SharedService) {}
 
   ngAfterViewInit(): void {
-    this.sharedService.scheduler = this.scheduler;
     this.scheduler.ensureAppointmentVisible('1');
+    this.sharedService.scheduler = this.scheduler;
   }
 
   generateAppointments(): any {
@@ -29,7 +29,6 @@ export class firstSchedComponent implements AfterViewInit {
         }));
 
         console.log(this.source.localdata);
-        return this.source.localdata;
       },
       (error) => {
         console.error('Error loading schedules:', error);
@@ -65,8 +64,6 @@ export class firstSchedComponent implements AfterViewInit {
   AppointmentAdd(event: any): void {
     const appointment = event.args.appointment.originalData;
 
-    // const subject_code = $('#subjectCode').val();
-    // const units = $('#units').val();
     const subject_code = $('#subjectCode').val();
     const units = $('#units').val();
 
@@ -130,7 +127,7 @@ export class firstSchedComponent implements AfterViewInit {
 
   resources: any = {
     colorScheme: 'scheme05',
-    dataField: 'subject_code',
+    dataField: 'id',
     source: new jqx.dataAdapter(this.source),
   };
   views: any[] = [

@@ -18,6 +18,8 @@ import { firstSchedComponent } from './schedule/1stYear';
 import { secondSchedComponent } from './schedule/2ndYear';
 import { thirdSchedComponent } from './schedule/3rdYear';
 import { fourthSchedComponent } from './schedule/4thYear';
+// import { TeacherRoutingComponent } from './teachers/teacher.component';
+// import { TeacherModule } from './teachers/teacher.module';
 
 @NgModule({
   imports: [
@@ -25,6 +27,7 @@ import { fourthSchedComponent } from './schedule/4thYear';
     ReactiveFormsModule,
     HttpClientModule,
     AppRoutingModule,
+    // TeacherModule,
     jqxSchedulerModule,
   ],
   declarations: [
@@ -35,6 +38,7 @@ import { fourthSchedComponent } from './schedule/4thYear';
     secondSchedComponent,
     thirdSchedComponent,
     fourthSchedComponent,
+    // TeacherRoutingComponent,
   ],
   providers: [
     {

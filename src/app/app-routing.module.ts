@@ -9,6 +9,7 @@ import { firstSchedComponent } from './schedule/1stYear';
 import { secondSchedComponent } from './schedule/2ndYear';
 import { thirdSchedComponent } from './schedule/3rdYear';
 import { fourthSchedComponent } from './schedule/4thYear';
+import { TeacherRoutingComponent } from './teachers';
 
 const accountModule = () =>
   import('./account/account.module').then((x) => x.AccountModule);
@@ -16,6 +17,9 @@ const adminModule = () =>
   import('./admin/admin.module').then((x) => x.AdminModule);
 const profileModule = () =>
   import('./profile/profile.module').then((x) => x.ProfileModule);
+
+const teachersModule = () =>
+  import('./teachers/teacher.module').then((x) => x.TeacherModule);
 
 const routes: Routes = [
   { path: '', component: HomeComponent, canActivate: [AuthGuard] },
@@ -26,6 +30,12 @@ const routes: Routes = [
     loadChildren: adminModule,
     canActivate: [AuthGuard],
     data: { roles: [Role.Admin] },
+  },
+  {
+    path: 'teachers',
+    loadChildren: teachersModule,
+    component: TeacherRoutingComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: 'schedule/1stYear',

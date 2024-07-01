@@ -28,6 +28,13 @@
         >Profile</a
       >
       <a
+        routerLink="/teachers"
+        routerLinkActive="active"
+        (click)="sharedService.closeDialogOnNavClick()"
+        class="nav-item nav-link"
+        >Teachers</a
+      >
+      <a
         *ngIf="account.role === Role.Admin"
         routerLink="/admin"
         routerLinkActive="active"

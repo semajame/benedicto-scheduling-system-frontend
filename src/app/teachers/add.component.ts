@@ -7,7 +7,8 @@ import {
 } from '@angular/forms';
 import { first } from 'rxjs/operators';
 
-import { AccountService, AlertService } from '../_services';
+import { AlertService } from '../_services';
+import { TeacherService } from '../_services/teacher.service';
 import { MustMatch } from '../_helpers';
 
 @Component({ templateUrl: 'add.component.html' })
@@ -22,7 +23,7 @@ export class AddComponent implements OnInit {
     private formBuilder: UntypedFormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private accountService: AccountService,
+    private teacherService: TeacherService,
     private alertService: AlertService
   ) {}
 
@@ -30,29 +31,17 @@ export class AddComponent implements OnInit {
     this.id = this.route.snapshot.params['id'];
     this.isAddMode = !this.id;
 
-    this.form = this.formBuilder.group(
-      {
-        title: ['', Validators.required],
-        firstName: ['', Validators.required],
-        lastName: ['', Validators.required],
-        email: ['', [Validators.required, Validators.email]],
-        role: ['', Validators.required],
-        password: [
-          '',
-          [
-            Validators.minLength(6),
-            this.isAddMode ? Validators.required : Validators.nullValidator,
-          ],
-        ],
-        confirmPassword: [''],
-      },
-      {
-        validator: MustMatch('password', 'confirmPassword'),
-      }
-    );
+    this.form = this.formBuilder.group({
+      // title: ['', Validators.required],
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
+      address: ['', Validators.required],
+      phoneNumber: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+    });
 
     if (!this.isAddMode) {
-      this.accountService
+      this.teacherService
         .getById(this.id)
         .pipe(first())
         .subscribe((x) => this.form.patchValue(x));
@@ -79,17 +68,17 @@ export class AddComponent implements OnInit {
     if (this.isAddMode) {
       this.createAccount();
     } else {
-      this.updateAccount();
+      // this.updateAccount();
     }
   }
 
   private createAccount() {
-    this.accountService
-      .create(this.form.value)
+    this.teacherService
+      .createTeacher(this.form.value)
       .pipe(first())
       .subscribe({
         next: () => {
-          this.alertService.success('Account created successfully', {
+          this.alertService.success('Teacher created successfully', {
             keepAfterRouteChange: true,
           });
 
@@ -102,21 +91,21 @@ export class AddComponent implements OnInit {
       });
   }
 
-  private updateAccount() {
-    this.accountService
-      .update(this.id, this.form.value)
-      .pipe(first())
-      .subscribe({
-        next: () => {
-          this.alertService.success('Update successful', {
-            keepAfterRouteChange: true,
-          });
-          this.router.navigate(['../../'], { relativeTo: this.route });
-        },
-        error: (error) => {
-          this.alertService.error(error);
-          this.loading = false;
-        },
-      });
-  }
+  // private updateAccount() {
+  //   this.teacherService
+  //     .update(this.id, this.form.value)
+  //     .pipe(first())
+  //     .subscribe({
+  //       next: () => {
+  //         this.alertService.success('Update successful', {
+  //           keepAfterRouteChange: true,
+  //         });
+  //         this.router.navigate(['../../'], { relativeTo: this.route });
+  //       },
+  //       error: (error) => {
+  //         this.alertService.error(error);
+  //         this.loading = false;
+  //       },
+  //     });
+  // }
 }

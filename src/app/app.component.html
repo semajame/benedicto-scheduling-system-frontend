@@ -1,140 +1,142 @@
-﻿<div class="app-container">
+﻿<div class="app-container container-fluid row">
   <!-- main nav -->
-  <nav
-    class="navbar navbar-expand mx-4 my-2"
-    *ngIf="account"
-    style="display: flex; justify-content: space-between; align-items: center"
-  >
-    <div class="navbar-nav" style="display: flex; align-items: center">
-      <img
-        src="
-      https://benedicto.octanity.net/lms/pluginfile.php/1/core_admin/logocompact/300x300/1707970871/bc_logo.jpeg"
-        alt=""
-        style="width: 45px; height: 45px; margin-right: 1.5rem"
-      />
-      <a
-        routerLink="/"
-        routerLinkActive="active"
-        (click)="sharedService.closeDialogOnNavClick()"
-        [routerLinkActiveOptions]="{ exact: true }"
-        class="nav-item nav-link"
-        >Home</a
-      >
-      <a
-        routerLink="/profile"
-        routerLinkActive="active"
-        (click)="sharedService.closeDialogOnNavClick()"
-        class="nav-item nav-link"
-        >Profile</a
-      >
-      <a
-        routerLink="/teachers"
-        routerLinkActive="active"
-        (click)="sharedService.closeDialogOnNavClick()"
-        class="nav-item nav-link"
-        >Teachers</a
-      >
-      <a
-        *ngIf="account.role === Role.Admin"
-        routerLink="/admin"
-        routerLinkActive="active"
-        (click)="sharedService.closeDialogOnNavClick()"
-        class="nav-item nav-link"
-        >Admin</a
-      >
-      <div class="dropdown ml-2" *ngIf="account.role === Role.Admin">
-        <button
-          class="btn btn-primary dropdown-toggle"
-          type="button"
-          data-bs-toggle="dropdown"
-          aria-expanded="false"
+  <div class="col-2 navbar-bg">
+    <nav
+      class="mx-4 my-2 text-light d-flex justify-content-between align-items-start flex-column min-vh-100"
+      *ngIf="account"
+    >
+      <div class="navbar-nav fs-6">
+        <img
+          src="
+        https://benedicto.octanity.net/lms/pluginfile.php/1/core_admin/logocompact/300x300/1707970871/bc_logo.jpeg"
+          alt=""
+          class="mt-5 mb-3"
+          style="width: 45px; height: 45px"
+        />
+        <a
+          routerLink="/"
+          routerLinkActive="active"
+          (click)="sharedService.closeDialogOnNavClick()"
+          [routerLinkActiveOptions]="{ exact: true }"
+          class="nav-item nav-link"
+          >Home</a
         >
-          Schedule
-        </button>
-        <ul class="dropdown-menu">
-          <li>
-            <a
-              class="dropdown-item"
-              *ngIf="account.role === Role.Admin"
-              routerLink="/schedule/1stYear"
-              routerLinkActive="active"
-              class="nav-item nav-link"
-              >1st Year</a
-            >
-          </li>
-          <li>
-            <a
-              class="dropdown-item"
-              *ngIf="account.role === Role.Admin"
-              routerLink="/schedule/2ndYear"
-              routerLinkActive="active"
-              class="nav-item nav-link"
-              >2nd Year</a
-            >
-          </li>
-          <li>
-            <a
-              class="dropdown-item"
-              *ngIf="account.role === Role.Admin"
-              routerLink="/schedule/3rdYear"
-              routerLinkActive="active"
-              class="nav-item nav-link"
-              >3rd Year</a
-            >
-          </li>
-          <li>
-            <a
-              class="dropdown-item"
-              *ngIf="account.role === Role.Admin"
-              routerLink="/schedule/4thYear"
-              routerLinkActive="active"
-              class="nav-item nav-link"
-              >4th Year</a
-            >
-          </li>
-        </ul>
+        <a
+          routerLink="/profile"
+          routerLinkActive="active"
+          (click)="sharedService.closeDialogOnNavClick()"
+          class="nav-item nav-link"
+          >Profile</a
+        >
+        <a
+          routerLink="/teachers"
+          routerLinkActive="active"
+          (click)="sharedService.closeDialogOnNavClick()"
+          class="nav-item nav-link"
+          >Teachers</a
+        >
+        <a
+          *ngIf="account.role === Role.Admin"
+          routerLink="/admin"
+          routerLinkActive="active"
+          (click)="sharedService.closeDialogOnNavClick()"
+          class="nav-item nav-link"
+          >Admin</a
+        >
+        <div class="dropdown mt-2" *ngIf="account.role === Role.Admin">
+          <button
+            class="btn btn-primary dropdown-toggle fs-6"
+            type="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            Schedule
+          </button>
+          <ul class="dropdown-menu text-center">
+            <li>
+              <a
+                class="dropdown-item"
+                *ngIf="account.role === Role.Admin"
+                routerLink="/schedule/1stYear"
+                routerLinkActive="active"
+                class="nav-item nav-link"
+                >1st Year</a
+              >
+            </li>
+            <li>
+              <a
+                class="dropdown-item"
+                *ngIf="account.role === Role.Admin"
+                routerLink="/schedule/2ndYear"
+                routerLinkActive="active"
+                class="nav-item nav-link"
+                >2nd Year</a
+              >
+            </li>
+            <li>
+              <a
+                class="dropdown-item"
+                *ngIf="account.role === Role.Admin"
+                routerLink="/schedule/3rdYear"
+                routerLinkActive="active"
+                class="nav-item nav-link"
+                >3rd Year</a
+              >
+            </li>
+            <li>
+              <a
+                class="dropdown-item"
+                *ngIf="account.role === Role.Admin"
+                routerLink="/schedule/4thYear"
+                routerLinkActive="active"
+                class="nav-item nav-link"
+                >4th Year</a
+              >
+            </li>
+          </ul>
+        </div>
+        <!-- <a
+          *ngIf="account.role === Role.Admin"
+          routerLink="/schedule"
+          routerLinkActive="active"
+          class="nav-item nav-link"
+          >Schedule</a
+        > -->
       </div>
-      <!-- <a
-        *ngIf="account.role === Role.Admin"
-        routerLink="/schedule"
-        routerLinkActive="active"
-        class="nav-item nav-link"
-        >Schedule</a
-      > -->
-    </div>
-    <div class="navbar-nav">
-      <button
-        type="button"
-        class="btn btn-danger d-flex align-items-center justify-content-between py-0"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="16"
-          height="16"
-          fill="currentColor"
-          class="bi bi-box-arrow-right"
-          viewBox="0 0 16 16"
+      <div class="navbar-nav">
+        <button
+          type="button"
+          class="btn btn-danger d-flex align-items-center justify-content-between py-0"
         >
-          <path
-            fill-rule="evenodd"
-            d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0z"
-          ></path>
-          <path
-            fill-rule="evenodd"
-            d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z"
-          ></path>
-        </svg>
-        <a (click)="logout()" class="nav-item nav-link">Logout</a>
-      </button>
-    </div>
-  </nav>
-
-  <!-- subnav router outlet -->
-  <router-outlet name="subnav"></router-outlet>
-
-  <!-- global alert -->
-  <alert></alert>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="currentColor"
+            class="bi bi-box-arrow-right"
+            viewBox="0 0 16 16"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0z"
+            ></path>
+            <path
+              fill-rule="evenodd"
+              d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z"
+            ></path>
+          </svg>
+          <a (click)="logout()" class="nav-item nav-link">Logout</a>
+        </button>
+      </div>
+    </nav>
+    <!-- subnav router outlet -->
+    <router-outlet name="subnav"></router-outlet>
+    <!-- global alert -->
+    <alert></alert>
+  </div>
 
   <!-- main router outlet -->
-  <router-outlet></router-outlet>
+  <div class="col-10">
+    <router-outlet></router-outlet>
+  </div>
 </div>

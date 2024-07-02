@@ -125,6 +125,8 @@ export class firstSchedComponent implements AfterViewInit {
   dataAdapter: any = new jqx.dataAdapter(this.source);
   date: any = new jqx.date();
 
+  width = '100%';
+
   resources: any = {
     colorScheme: 'scheme05',
     dataField: 'id',

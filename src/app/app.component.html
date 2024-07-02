@@ -7,40 +7,41 @@
     >
       <div class="navbar-nav fs-6">
         <img
-          src="
-        https://benedicto.octanity.net/lms/pluginfile.php/1/core_admin/logocompact/300x300/1707970871/bc_logo.jpeg"
-          alt=""
-          class="mt-5 mb-3"
-          style="width: 45px; height: 45px"
+          src="../assets/bc_logo-removebg-preview.png"
+          alt="Benedicto Logo"
+          class="mt-3 mb-5 logo-img"
+          style="width: 100px; height: 100px"
         />
         <a
           routerLink="/"
           routerLinkActive="active"
           (click)="sharedService.closeDialogOnNavClick()"
           [routerLinkActiveOptions]="{ exact: true }"
-          class="nav-item nav-link"
-          >Home</a
+          class="nav-item nav-link d-flex align-items-center gap-2 fw-bold my-2"
+        >
+          <img src="../assets/home.png" alt="Home Icon" />Home</a
         >
         <a
           routerLink="/profile"
           routerLinkActive="active"
           (click)="sharedService.closeDialogOnNavClick()"
-          class="nav-item nav-link"
+          class="nav-item nav-link d-flex align-items-center gap-2 fw-bold my-2"
           >Profile</a
         >
         <a
           routerLink="/teachers"
           routerLinkActive="active"
           (click)="sharedService.closeDialogOnNavClick()"
-          class="nav-item nav-link"
-          >Teachers</a
+          class="nav-item nav-link d-flex align-items-center gap-2 fw-bold my-2"
+        >
+          <img src="../assets/teachers.png" alt="Teachers Icon" />Teachers</a
         >
         <a
           *ngIf="account.role === Role.Admin"
           routerLink="/admin"
           routerLinkActive="active"
           (click)="sharedService.closeDialogOnNavClick()"
-          class="nav-item nav-link"
+          class="nav-item nav-link d-flex align-items-center gap-2 fw-bold my-2"
           >Admin</a
         >
         <div class="dropdown mt-2" *ngIf="account.role === Role.Admin">

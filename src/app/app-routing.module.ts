@@ -5,8 +5,8 @@ import { HomeComponent } from './home';
 // import { SchedComponent } from './schedule';
 import { AuthGuard } from './_helpers';
 import { Role } from './_models';
-import { firstSchedComponent } from './schedule/1stYear';
-import { secondSchedComponent } from './schedule/2ndYear';
+import { firstSchedComponent } from './schedule/1st-year';
+import { secondSchedComponent } from './schedule/2nd-year';
 import { thirdSchedComponent } from './schedule/3rdYear';
 import { fourthSchedComponent } from './schedule/4thYear';
 import { TeacherRoutingComponent } from './teachers';
@@ -38,14 +38,14 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
-    path: 'schedule/1stYear',
+    path: 'schedule/1st-year',
     loadChildren: adminModule,
     component: firstSchedComponent,
     canActivate: [AuthGuard],
     data: { roles: [Role.Admin] },
   },
   {
-    path: 'schedule/2ndYear',
+    path: 'schedule/2nd-year',
     loadChildren: adminModule,
     component: secondSchedComponent,
     canActivate: [AuthGuard],

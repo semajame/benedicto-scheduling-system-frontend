@@ -1,8 +1,8 @@
 ﻿<div class="app-container container-fluid row">
   <!-- main nav -->
-  <div class="col-2 navbar-bg">
+  <div class="col-2 navbar-bg position-fixed">
     <nav
-      class="mx-4 my-2 text-light d-flex justify-content-between align-items-start flex-column min-vh-100"
+      class="ml-2 my-2 text-light d-flex justify-content-between align-items-start flex-column min-vh-100"
       *ngIf="account"
     >
       <div class="navbar-nav fs-6">
@@ -22,13 +22,6 @@
           <img src="../assets/home.png" alt="Home Icon" />Home</a
         >
         <a
-          routerLink="/profile"
-          routerLinkActive="active"
-          (click)="sharedService.closeDialogOnNavClick()"
-          class="nav-item nav-link d-flex align-items-center gap-2 fw-bold my-2"
-          >Profile</a
-        >
-        <a
           routerLink="/teachers"
           routerLinkActive="active"
           (click)="sharedService.closeDialogOnNavClick()"
@@ -37,6 +30,14 @@
           <img src="../assets/teachers.png" alt="Teachers Icon" />Teachers</a
         >
         <a
+          routerLink="/profile"
+          routerLinkActive="active"
+          (click)="sharedService.closeDialogOnNavClick()"
+          class="nav-item nav-link d-flex align-items-center gap-2 fw-bold my-2"
+          >Profile</a
+        >
+
+        <a
           *ngIf="account.role === Role.Admin"
           routerLink="/admin"
           routerLinkActive="active"
@@ -44,21 +45,22 @@
           class="nav-item nav-link d-flex align-items-center gap-2 fw-bold my-2"
           >Admin</a
         >
-        <div class="dropdown mt-2" *ngIf="account.role === Role.Admin">
+        <div class="dropdown mt-2 fw-bold" *ngIf="account.role === Role.Admin">
           <button
-            class="btn btn-primary dropdown-toggle fs-6"
+            class="btn fs-6 fw-bold text-light p-0 schedule-button"
             type="button"
             data-bs-toggle="dropdown"
             aria-expanded="false"
           >
+            <img src="../assets/calendar.png" alt="Calendar Icon" />
             Schedule
           </button>
-          <ul class="dropdown-menu text-center">
+          <ul class="dropdown-menu text-center fw-bold">
             <li>
               <a
                 class="dropdown-item"
                 *ngIf="account.role === Role.Admin"
-                routerLink="/schedule/1stYear"
+                routerLink="/schedule/1st-year"
                 routerLinkActive="active"
                 class="nav-item nav-link"
                 >1st Year</a
@@ -68,7 +70,7 @@
               <a
                 class="dropdown-item"
                 *ngIf="account.role === Role.Admin"
-                routerLink="/schedule/2ndYear"
+                routerLink="/schedule/2nd-year"
                 routerLinkActive="active"
                 class="nav-item nav-link"
                 >2nd Year</a
@@ -104,29 +106,14 @@
           >Schedule</a
         > -->
       </div>
-      <div class="navbar-nav">
+      <div class="navbar-nav mb-3">
         <button
           type="button"
-          class="btn btn-danger d-flex align-items-center justify-content-between py-0"
+          class="btn btn-danger d-flex align-items-center justify-content-between py-0 fw-bold gap-2"
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            fill="currentColor"
-            class="bi bi-box-arrow-right"
-            viewBox="0 0 16 16"
+          <a (click)="logout()" class="nav-item nav-link">
+            <img src="../assets/logout.png" alt="Logout Icon" />Logout</a
           >
-            <path
-              fill-rule="evenodd"
-              d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0z"
-            ></path>
-            <path
-              fill-rule="evenodd"
-              d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z"
-            ></path>
-          </svg>
-          <a (click)="logout()" class="nav-item nav-link">Logout</a>
         </button>
       </div>
     </nav>
@@ -137,7 +124,7 @@
   </div>
 
   <!-- main router outlet -->
-  <div class="col-10">
+  <div class="col-10 p-0 main-board">
     <router-outlet></router-outlet>
   </div>
 </div>

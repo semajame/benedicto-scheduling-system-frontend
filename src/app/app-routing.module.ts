@@ -10,6 +10,7 @@ import { secondSchedComponent } from './schedule/2nd-year';
 import { thirdSchedComponent } from './schedule/3rdYear';
 import { fourthSchedComponent } from './schedule/4thYear';
 import { TeacherRoutingComponent } from './teachers';
+import { ProspectusComponent } from './prospectus';
 
 const accountModule = () =>
   import('./account/account.module').then((x) => x.AccountModule);
@@ -25,6 +26,13 @@ const routes: Routes = [
   { path: '', component: HomeComponent, canActivate: [AuthGuard] },
   { path: 'account', loadChildren: accountModule },
   { path: 'profile', loadChildren: profileModule, canActivate: [AuthGuard] },
+  {
+    path: 'prospectus',
+    loadChildren: adminModule,
+    component: ProspectusComponent,
+    canActivate: [AuthGuard],
+    data: { roles: [Role.Admin] },
+  },
   {
     path: 'admin',
     loadChildren: adminModule,

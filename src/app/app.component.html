@@ -33,13 +33,21 @@
         >Profile</a
       >
 
-      <a
+      <!-- <a
         *ngIf="account.role === Role.Admin"
         routerLink="/admin"
         routerLinkActive="active"
         (click)="sharedService.closeDialogOnNavClick()"
         class="nav-item nav-link d-flex gap-2 align-items-center text-light"
         >Admin</a
+      > -->
+      <a
+        *ngIf="account.role === Role.Admin"
+        routerLink="/prospectus"
+        routerLinkActive="active"
+        (click)="sharedService.closeDialogOnNavClick()"
+        class="nav-item nav-link d-flex gap-2 align-items-center text-light"
+        >Prospectus</a
       >
       <div
         class="dropdown align-items-center nav-link nav-item"
@@ -61,6 +69,7 @@
               *ngIf="account.role === Role.Admin"
               routerLink="/schedule/1st-year"
               routerLinkActive="active"
+              (click)="sharedService.closeDialogOnNavClick()"
               class="nav-item nav-link"
               >1st Year</a
             >
@@ -71,6 +80,7 @@
               *ngIf="account.role === Role.Admin"
               routerLink="/schedule/2nd-year"
               routerLinkActive="active"
+              (click)="sharedService.closeDialogOnNavClick()"
               class="nav-item nav-link"
               >2nd Year</a
             >
@@ -80,6 +90,7 @@
               class="dropdown-item"
               *ngIf="account.role === Role.Admin"
               routerLink="/schedule/3rdYear"
+              (click)="sharedService.closeDialogOnNavClick()"
               routerLinkActive="active"
               class="nav-item nav-link"
               >3rd Year</a
@@ -92,6 +103,7 @@
               routerLink="/schedule/4thYear"
               routerLinkActive="active"
               class="nav-item nav-link"
+              (click)="sharedService.closeDialogOnNavClick()"
               >4th Year</a
             >
           </li>
@@ -106,14 +118,59 @@
         > -->
     </div>
     <div class="">
+      <!-- Button trigger modal -->
       <button
         type="button"
         class="btn btn-danger d-flex align-items-center justify-content-center gap-1 p-2"
+        data-bs-toggle="modal"
+        data-bs-target="#exampleModal"
       >
-        <a (click)="logout()" class="nav-item nav-link d-flex gap-1">
-          <img src="../assets/logout.png" alt="Logout Icon" />Logout</a
-        >
+        <img src="../assets/logout.png" alt="Logout Icon" />Logout
       </button>
+
+      <div
+        class="modal"
+        id="exampleModal"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header" style="border: none">
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body text-center">
+              <h5 class="text-black fw-bold">
+                You are attempting to log out of Benedicto College Scheduling
+              </h5>
+              <p class="text-body are-you">
+                Are you sure you want to continue?
+              </p>
+
+              <p class="text-body logged-as">
+                Logged In as {{ account.firstName }}
+              </p>
+              <a
+                type="button"
+                (click)="logout()"
+                class="btn btn-danger logout-button"
+                data-bs-dismiss="modal"
+                >Logout</a
+              >
+            </div>
+            <!-- <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary">Save changes</button>
+            </div> -->
+          </div>
+        </div>
+      </div>
     </div>
   </div>
   <!-- subnav router outlet -->

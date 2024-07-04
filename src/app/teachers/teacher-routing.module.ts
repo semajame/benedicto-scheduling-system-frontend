@@ -11,6 +11,7 @@ const routes: Routes = [
     component: TeacherRoutingComponent,
     children: [
       { path: 'add', component: AddComponent },
+      { path: 'edit/:id', component: AddComponent },
       { path: '', component: LayoutComponent },
     ],
   },

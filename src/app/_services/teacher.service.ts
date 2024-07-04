@@ -39,26 +39,29 @@ export class TeacherService {
   createTeacher(teacher: Teachers) {
     return this.http.post(`${baseUrl}/add-teacher`, teacher);
   }
-  // update(id, params) {
-  //   return this.http.put(`${baseUrl}/${id}`, params).pipe(
-  //     map((teachers: any) => {
-  //       // update the current teachers if it was updated
-  //       if (teachers.id === this.teachersValue.id) {
-  //         // publish updated teachers to subscribers
-  //         teachers = { ...this.teachersValue, ...teachers };
-  //         this.teachersSubject.next(teachers);
-  //       }
-  //       return teachers;
-  //     })
-  //   );
-  // }
 
-  // delete(id: string) {
-  //   return this.http.delete(`${baseUrl}/${id}`).pipe(
-  //     finalize(() => {
-  //       // auto logout if the logged in account was deleted
-  //       if (id === this.accountValue.id) this.logout();
-  //     })
-  //   );
-  // }
+  update(id: string, params: any): Observable<Teachers> {
+    return this.http
+      .put<Teachers>(`${baseUrl}/edit-teacher/${id}`, params)
+      .pipe(
+        map((updatedTeacher: Teachers) => {
+          // Check if teacherValue is not null before accessing it
+          if (this.teacherValue && updatedTeacher.id === this.teacherValue.id) {
+            // Publish updated teacher to subscribers
+            const teacher = { ...this.teacherValue, ...updatedTeacher };
+            this.teacherSubject.next(teacher);
+          }
+          return updatedTeacher;
+        })
+      );
+
+    // delete(id: string) {
+    //   return this.http.delete(`${baseUrl}/${id}`).pipe(
+    //     finalize(() => {
+    //       // auto logout if the logged in account was deleted
+    //       if (id === this.accountValue.id) this.logout();
+    //     })
+    //   );
+    // }
+  }
 }

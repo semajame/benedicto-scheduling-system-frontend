@@ -46,12 +46,13 @@
         *ngIf="account.role === Role.Admin"
       >
         <button
-          class="btn fs-6 align-items-center p-0 schedule-button gap-2 text-light nav-link nav-item"
+          class="btn fs-6 d-flex align-items-center p-0 schedule-button gap-1 text-light nav-link nav-item"
           type="button"
           data-bs-toggle="dropdown"
           aria-expanded="false"
         >
           Schedule
+          <img src="../assets/arrow-down.png" alt="Arrow Icon" />
         </button>
         <ul class="dropdown-menu align-items-center">
           <li>
@@ -105,16 +106,20 @@
         > -->
     </div>
     <div class="">
-      <button type="button" class="btn btn-danger gap-2 p-2">
-        <a (click)="logout()" class="nav-item nav-link"> Logout</a>
+      <button
+        type="button"
+        class="btn btn-danger d-flex align-items-center justify-content-center gap-1 p-2"
+      >
+        <a (click)="logout()" class="nav-item nav-link d-flex gap-1">
+          <img src="../assets/logout.png" alt="Logout Icon" />Logout</a
+        >
       </button>
     </div>
   </div>
-    <!-- subnav router outlet -->
-    <router-outlet name="subnav"></router-outlet>
-    <!-- global alert -->
-    <alert></alert>
-
+  <!-- subnav router outlet -->
+  <router-outlet name="subnav"></router-outlet>
+  <!-- global alert -->
+  <alert></alert>
 
   <!-- main router outlet -->
 

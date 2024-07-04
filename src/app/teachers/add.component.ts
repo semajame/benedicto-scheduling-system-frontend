@@ -68,7 +68,7 @@ export class AddComponent implements OnInit {
     if (this.isAddMode) {
       this.createAccount();
     } else {
-      // this.updateAccount();
+      this.updateAccount();
     }
   }
 
@@ -91,21 +91,21 @@ export class AddComponent implements OnInit {
       });
   }
 
-  // private updateAccount() {
-  //   this.teacherService
-  //     .update(this.id, this.form.value)
-  //     .pipe(first())
-  //     .subscribe({
-  //       next: () => {
-  //         this.alertService.success('Update successful', {
-  //           keepAfterRouteChange: true,
-  //         });
-  //         this.router.navigate(['../../'], { relativeTo: this.route });
-  //       },
-  //       error: (error) => {
-  //         this.alertService.error(error);
-  //         this.loading = false;
-  //       },
-  //     });
-  // }
+  private updateAccount() {
+    this.teacherService
+      .update(this.id, this.form.value)
+      .pipe(first())
+      .subscribe({
+        next: () => {
+          this.alertService.success('Update successful', {
+            keepAfterRouteChange: true,
+          });
+          this.router.navigate(['../../'], { relativeTo: this.route });
+        },
+        error: (error) => {
+          this.alertService.error(error);
+          this.loading = false;
+        },
+      });
+  }
 }

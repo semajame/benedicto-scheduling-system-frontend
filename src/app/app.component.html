@@ -51,6 +51,7 @@
       >
       <div
         class="dropdown align-items-center nav-link nav-item"
+        (click)="sharedService.closeDialogOnNavClick()"
         *ngIf="account.role === Role.Admin"
       >
         <button
@@ -69,7 +70,6 @@
               *ngIf="account.role === Role.Admin"
               routerLink="/schedule/1st-year"
               routerLinkActive="active"
-              (click)="sharedService.closeDialogOnNavClick()"
               class="nav-item nav-link"
               >1st Year</a
             >
@@ -80,7 +80,6 @@
               *ngIf="account.role === Role.Admin"
               routerLink="/schedule/2nd-year"
               routerLinkActive="active"
-              (click)="sharedService.closeDialogOnNavClick()"
               class="nav-item nav-link"
               >2nd Year</a
             >
@@ -90,7 +89,6 @@
               class="dropdown-item"
               *ngIf="account.role === Role.Admin"
               routerLink="/schedule/3rdYear"
-              (click)="sharedService.closeDialogOnNavClick()"
               routerLinkActive="active"
               class="nav-item nav-link"
               >3rd Year</a
@@ -103,7 +101,6 @@
               routerLink="/schedule/4thYear"
               routerLinkActive="active"
               class="nav-item nav-link"
-              (click)="sharedService.closeDialogOnNavClick()"
               >4th Year</a
             >
           </li>

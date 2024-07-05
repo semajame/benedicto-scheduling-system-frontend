@@ -20,6 +20,7 @@ import { thirdSchedComponent } from './schedule/3rdYear';
 import { fourthSchedComponent } from './schedule/4thYear';
 // import { TeacherRoutingComponent } from './teachers/teacher.component';
 // import { TeacherModule } from './teachers/teacher.module';
+import { prospectusModule } from './prospectus/prospectus.module';
 
 @NgModule({
   imports: [
@@ -27,6 +28,7 @@ import { fourthSchedComponent } from './schedule/4thYear';
     ReactiveFormsModule,
     HttpClientModule,
     AppRoutingModule,
+    prospectusModule,
     // TeacherModule,
     jqxSchedulerModule,
   ],
@@ -38,6 +40,7 @@ import { fourthSchedComponent } from './schedule/4thYear';
     secondSchedComponent,
     thirdSchedComponent,
     fourthSchedComponent,
+
     // TeacherRoutingComponent,
   ],
   providers: [

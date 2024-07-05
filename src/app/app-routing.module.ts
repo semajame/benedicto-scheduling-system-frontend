@@ -19,6 +19,9 @@ const adminModule = () =>
 const profileModule = () =>
   import('./profile/profile.module').then((x) => x.ProfileModule);
 
+const prospectusModule = () =>
+  import('./prospectus/prospectus.module').then((x) => x.prospectusModule);
+
 const teachersModule = () =>
   import('./teachers/teacher.module').then((x) => x.TeacherModule);
 
@@ -28,7 +31,7 @@ const routes: Routes = [
   { path: 'profile', loadChildren: profileModule, canActivate: [AuthGuard] },
   {
     path: 'prospectus',
-    loadChildren: adminModule,
+    loadChildren: prospectusModule,
     component: ProspectusComponent,
     canActivate: [AuthGuard],
     data: { roles: [Role.Admin] },

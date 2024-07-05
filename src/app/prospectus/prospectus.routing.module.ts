@@ -8,8 +8,11 @@ import { ProspectusComponent } from './prospectus.component';
 const routes: Routes = [
   {
     path: '',
-    component: LayoutComponent,
-    children: [{ path: '1st-year', component: ProspectusFirstComponent }],
+    component: ProspectusComponent,
+    children: [
+      { path: '1st-year', component: ProspectusFirstComponent },
+      { path: '', component: LayoutComponent },
+    ],
   },
 ];
 

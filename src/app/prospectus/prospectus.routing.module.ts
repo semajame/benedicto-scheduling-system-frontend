@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { ProspectusFirstComponent } from './1st-year/prospectus-1st.component';
 import { LayoutComponent } from './layout.component';
+import { ProspectusComponent } from './prospectus.component';
 
 const routes: Routes = [
   {

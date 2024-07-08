@@ -26,10 +26,12 @@ export class firstSchedComponent implements AfterViewInit {
           location: event.location,
           start: new Date(event.start),
           end: new Date(event.end),
+          draggable: false,
+          resizable: false,
         }));
 
         this.source.localdata = appointments;
-        this.dataAdapter = new jqx.dataAdapter(this.source)
+        this.dataAdapter = new jqx.dataAdapter(this.source);
         this.scheduler.source(this.dataAdapter);
         console.log(this.source.localdata);
       },
@@ -50,6 +52,8 @@ export class firstSchedComponent implements AfterViewInit {
       { name: 'location', type: 'string' },
       { name: 'start', type: 'date' },
       { name: 'end', type: 'date' },
+      { name: 'draggable', type: 'boolean' },
+      { name: 'resizable', type: 'boolean' },
     ],
     id: 'id',
   };
@@ -62,6 +66,8 @@ export class firstSchedComponent implements AfterViewInit {
     location: 'location',
     from: 'start',
     to: 'end',
+    draggable: 'draggable',
+    resizable: 'resizable',
   };
 
   AppointmentAdd(event: any): void {

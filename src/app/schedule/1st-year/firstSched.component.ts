@@ -1,4 +1,5 @@
 import { Component, ViewChild, AfterViewInit } from '@angular/core';
+
 import { jqxSchedulerComponent } from 'jqwidgets-ng/jqxscheduler';
 import { SharedService } from 'src/app/shared.service';
 
@@ -6,20 +7,19 @@ import { SharedService } from 'src/app/shared.service';
   templateUrl: 'firstSched.component.html',
 })
 export class firstSchedComponent implements AfterViewInit {
-  @ViewChild('schedulerReference')
-  scheduler: jqxSchedulerComponent;
+  @ViewChild('schedulerReference') scheduler: jqxSchedulerComponent;
+
   constructor(private sharedService: SharedService) {}
 
   ngAfterViewInit(): void {
     this.scheduler.ensureAppointmentVisible('1');
-    this.sharedService.scheduler = this.scheduler;
   }
 
   generateAppointments(): any {
     this.sharedService.getSchedules().subscribe(
       (data) => {
-        this.source.localdata = data.map((event) => ({
-          id: event.id,
+        const appointments = data.map((event) => ({
+          id: event.id.toString(),
           subject_code: event.subject_code,
           subject: event.subject,
           units: event.units,
@@ -28,6 +28,8 @@ export class firstSchedComponent implements AfterViewInit {
           end: new Date(event.end),
         }));
 
+        this.source.localdata = appointments;
+        this.scheduler.source(this.dataAdapter);
         console.log(this.source.localdata);
       },
       (error) => {
@@ -87,20 +89,18 @@ export class firstSchedComponent implements AfterViewInit {
   }
 
   editDialogCreate = (dialog, fields, editAppointment) => {
-    let subjectCodeContainer = `
-      <div>
-        <div class='jqx-scheduler-edit-dialog-label'>Subject Code</div>
-        <div class='jqx-scheduler-edit-dialog-field'>
-          <input id='subjectCode' width='100%' />
+    let subjectCodeContainer = ` <div>
+        <div class="jqx-scheduler-edit-dialog-label">Subject Code</div>
+        <div class="jqx-scheduler-edit-dialog-field">
+          <input id="subjectCode" width="100%" />
         </div>
       </div>`;
     fields.subjectContainer.append(subjectCodeContainer);
 
-    let unitsContainer = `
-      <div>
-        <div class='jqx-scheduler-edit-dialog-label'>Units</div>
-        <div class='jqx-scheduler-edit-dialog-field'>
-          <input id='units' type='number' min='1' max='3' width='100%' />
+    let unitsContainer = ` <div>
+        <div class="jqx-scheduler-edit-dialog-label">Units</div>
+        <div class="jqx-scheduler-edit-dialog-field">
+          <input id="units" type="number" min="1" max="3" width="100%" />
         </div>
       </div>`;
     fields.subjectContainer.append(unitsContainer);
@@ -127,7 +127,7 @@ export class firstSchedComponent implements AfterViewInit {
 
   resources: any = {
     colorScheme: 'scheme05',
-    dataField: 'id',
+    dataField: 'calendar',
     source: new jqx.dataAdapter(this.source),
   };
   views: any[] = [

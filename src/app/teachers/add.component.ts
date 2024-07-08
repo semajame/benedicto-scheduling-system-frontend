@@ -18,6 +18,7 @@ export class AddComponent implements OnInit {
   isAddMode: boolean;
   loading = false;
   submitted = false;
+  isEditPage = false;
 
   constructor(
     private formBuilder: UntypedFormBuilder,
@@ -46,11 +47,18 @@ export class AddComponent implements OnInit {
         .pipe(first())
         .subscribe((x) => this.form.patchValue(x));
     }
+    this.checkIfEditPage();
   }
 
   // convenience getter for easy access to form fields
   get f() {
     return this.form.controls;
+  }
+
+  checkIfEditPage() {
+    // Check if the current URL matches the edit page pattern
+    const url = this.router.url;
+    this.isEditPage = url.startsWith(`/teachers/edit`);
   }
 
   onSubmit() {
@@ -107,5 +115,24 @@ export class AddComponent implements OnInit {
           this.loading = false;
         },
       });
+  }
+
+  onDelete() {
+    if (confirm('Are you sure you want to delete this teacher?')) {
+      this.loading = true;
+      this.teacherService.delete(this.id).subscribe({
+        next: () => {
+          this.alertService.success('Delete successful', {
+            keepAfterRouteChange: true,
+          });
+          this.loading = false;
+          this.router.navigate(['/teachers']);
+        },
+        error: (err) => {
+          console.error('Error deleting teacher:', err);
+          this.loading = false;
+        },
+      });
+    }
   }
 }

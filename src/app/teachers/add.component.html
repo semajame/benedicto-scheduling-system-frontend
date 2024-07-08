@@ -79,6 +79,14 @@
       ></span>
       Save
     </button>
-    <a routerLink="/teachers" class="btn btn-danger ml-3">Cancel</a>
+    <button
+      (click)="onDelete()"
+      class="btn btn-danger ml-2"
+      [disabled]="loading"
+      *ngIf="isEditPage"
+    >
+      Delete
+    </button>
+    <a routerLink="/teachers" class="btn btn-secondary ml-2">Cancel</a>
   </div>
 </form>

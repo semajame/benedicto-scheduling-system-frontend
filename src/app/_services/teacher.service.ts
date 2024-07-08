@@ -54,14 +54,17 @@ export class TeacherService {
           return updatedTeacher;
         })
       );
+  }
 
-    // delete(id: string) {
-    //   return this.http.delete(`${baseUrl}/${id}`).pipe(
-    //     finalize(() => {
-    //       // auto logout if the logged in account was deleted
-    //       if (id === this.accountValue.id) this.logout();
-    //     })
-    //   );
-    // }
+  delete(id: string) {
+    return this.http.delete(`${baseUrl}/delete-teacher/${id}`).pipe(
+      finalize(() => {
+        // Clear the current teacher if the deleted teacher was the current teacher
+        if (this.teacherValue && id === this.teacherValue.id) {
+          this.teacherSubject.next(null); // Clear the current teacher
+          this.router.navigate(['/teachers']); // Redirect to the teachers list or any other appropriate route
+        }
+      })
+    );
   }
 }

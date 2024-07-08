@@ -29,6 +29,7 @@ export class firstSchedComponent implements AfterViewInit {
         }));
 
         this.source.localdata = appointments;
+        this.dataAdapter = new jqx.dataAdapter(this.source)
         this.scheduler.source(this.dataAdapter);
         console.log(this.source.localdata);
       },

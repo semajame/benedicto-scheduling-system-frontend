@@ -1,5 +1,4 @@
 import { Component, ViewChild, AfterViewInit } from '@angular/core';
-
 import { jqxSchedulerComponent } from 'jqwidgets-ng/jqxscheduler';
 import { SharedService } from 'src/app/shared.service';
 
@@ -73,41 +72,75 @@ export class firstSchedComponent implements AfterViewInit {
   AppointmentAdd(event: any): void {
     const appointment = event.args.appointment.originalData;
 
-    const subject_code = $('#subjectCode').val();
-    const units = $('#units').val();
+    setTimeout(() => {
+      const subject_code = $('#subjectCode').val();
+      const units = $('#units').val();
+      const subject = $('#subject').val();
 
-    const newAppointment = {
-      subject_code: subject_code,
-      subject: appointment.subject,
-      units: units,
-      location: appointment.location,
-      start: new Date(appointment.start),
-      end: new Date(appointment.end),
-    };
+      const newAppointment = {
+        subject_code: subject_code,
+        subject: subject,
+        units: units,
+        location: appointment.location,
+        start: new Date(appointment.start),
+        end: new Date(appointment.end),
+      };
 
-    this.sharedService.addSchedule(newAppointment).subscribe(
-      (response) => {
-        appointment.id = response.id;
-        this.source.localdata.push(appointment);
-        this.scheduler.source(this.dataAdapter);
-      },
-      (error) => console.error('Error adding schedule:', error)
-    );
+      this.sharedService.addSchedule(newAppointment).subscribe(
+        (response) => {
+          appointment.id = response.id;
+          this.source.localdata.push(appointment);
+          this.scheduler.source(this.dataAdapter);
+          window.location.reload();
+        },
+        (error) => console.error('Error adding schedule:', error)
+      );
+    }, 100);
   }
 
   editDialogCreate = (dialog, fields, editAppointment) => {
     let subjectCodeContainer = ` <div>
-        <div class="jqx-scheduler-edit-dialog-label">Subject Code</div>
+        <div class="jqx-scheduler-edit-dialog-label pr-0" style="padding-right: 0; padding-left: 0; ">Subject Code</div>
         <div class="jqx-scheduler-edit-dialog-field">
-          <input id="subjectCode" width="100%" />
+          <select id="subjectCode" name="subjectCode">
+            <option value="IT110">IT110</option>
+            <option value="IT111">IT111</option>
+            <option value="UTS">UTS</option>
+            <option value="MathWorld">MathWorld</option>
+             <option value="Fil 1">Fil 1</option>
+            <option value="PE 1">PE 1</option>
+            <option value="NSTP 1">NSTP 1</option>
+            <option value="MathPrep">MathPrep</option>
+          </select>
         </div>
       </div>`;
     fields.subjectContainer.append(subjectCodeContainer);
 
+    let subjectInput = `
+    <div class="jqx-scheduler-edit-dialog-label">Subject</div>
+      <div class="jqx-scheduler-edit-dialog-field">
+        <select id="subject" name="subject">
+          <option value="Introduction to Computing">Introduction to Computing</option>
+          <option value="Computer Programming">Computer Programming</option>
+          <option value="Understanding the Self">Understanding the Self</option>
+          <option value="Math in the Modern World">Math in the Modern World</option>
+           <option value="Komunikasyon sa Akademikong Filipino">Komunikasyon sa Akademikong Filipino</option>
+          <option value="Wellness & Fitness">	Wellness & Fitness</option>
+          <option value="National Service Training Prog. 1">	National Service Training Prog. 1</option>
+          <option value="Pre Calculus for Non-STEM">Pre Calculus for Non-STEM</option>
+        </select>
+      </div>
+ `;
+
+    fields.subjectContainer.append(subjectInput);
+
     let unitsContainer = ` <div>
         <div class="jqx-scheduler-edit-dialog-label">Units</div>
         <div class="jqx-scheduler-edit-dialog-field">
-          <input id="units" type="number" min="1" max="3" width="100%" />
+          <select id="units" name="units">
+            <option value="2">2</option>
+            <option value="3">3</option>
+          </select>
         </div>
       </div>`;
     fields.subjectContainer.append(unitsContainer);
@@ -115,8 +148,9 @@ export class firstSchedComponent implements AfterViewInit {
 
   editDialogOpen = (dialog, fields, editAppointment) => {
     fields.repeatContainer.hide();
+    fields.subject.hide();
+    fields.subjectLabel.hide();
     fields.descriptionContainer.hide();
-
     fields.statusContainer.hide();
     fields.timeZoneContainer.hide();
     fields.allDayContainer.hide();
@@ -124,8 +158,11 @@ export class firstSchedComponent implements AfterViewInit {
 
     if (editAppointment) {
       const appointmentData = editAppointment.originalData;
-      $('#subjectCode').val(appointmentData.subject_code);
-      $('#units').val(appointmentData.units);
+      setTimeout(() => {
+        $('#subjectCode').val(appointmentData.subject_code);
+        $('#units').val(appointmentData.units);
+        $('#subject').val(appointmentData.subject);
+      }, 100); // Slight delay to ensure elements are available
     }
   };
 

@@ -27,6 +27,8 @@ export class firstSchedComponent implements AfterViewInit {
           end: new Date(event.end),
           draggable: false,
           resizable: false,
+          recurrencePattern: event.recurrencePattern,
+          background: event.background,
         }));
 
         this.source.localdata = appointments;
@@ -37,6 +39,38 @@ export class firstSchedComponent implements AfterViewInit {
       (error) => {
         console.error('Error loading schedules:', error);
       }
+    );
+  }
+
+  // ADD APPOINTMENT
+  AppointmentAdd(event: any): void {
+    const appointment = event.args.appointment.originalData;
+
+    const subject_code = $('#subjectCode').val();
+    const units = $('#units').val();
+    const subject = $('#subject').val();
+
+    const newAppointment = {
+      subject_code: subject_code,
+      subject: subject,
+      units: units,
+      location: appointment.location,
+      start: new Date(appointment.start),
+      end: new Date(appointment.end),
+      recurrencePattern: appointment.recurrencePattern.toString(),
+      background: appointment.background,
+    };
+
+    console.log('recurrncepattern: ', typeof appointment.recurrencePattern);
+
+    this.sharedService.addSchedule(newAppointment).subscribe(
+      (response) => {
+        appointment.id = response.id;
+        this.source.localdata.push(appointment);
+        this.scheduler.source(this.dataAdapter);
+        window.location.reload();
+      },
+      (error) => console.error('Error adding schedule:', error)
     );
   }
 
@@ -53,6 +87,8 @@ export class firstSchedComponent implements AfterViewInit {
       { name: 'end', type: 'date' },
       { name: 'draggable', type: 'boolean' },
       { name: 'resizable', type: 'boolean' },
+      { name: 'recurrencePattern', type: 'string' },
+      { name: 'background', type: 'string' },
     ],
     id: 'id',
   };
@@ -67,36 +103,9 @@ export class firstSchedComponent implements AfterViewInit {
     to: 'end',
     draggable: 'draggable',
     resizable: 'resizable',
+    recurrencePattern: 'recurrencePattern',
+    background: 'background',
   };
-
-  AppointmentAdd(event: any): void {
-    const appointment = event.args.appointment.originalData;
-
-    setTimeout(() => {
-      const subject_code = $('#subjectCode').val();
-      const units = $('#units').val();
-      const subject = $('#subject').val();
-
-      const newAppointment = {
-        subject_code: subject_code,
-        subject: subject,
-        units: units,
-        location: appointment.location,
-        start: new Date(appointment.start),
-        end: new Date(appointment.end),
-      };
-
-      this.sharedService.addSchedule(newAppointment).subscribe(
-        (response) => {
-          appointment.id = response.id;
-          this.source.localdata.push(appointment);
-          this.scheduler.source(this.dataAdapter);
-          window.location.reload();
-        },
-        (error) => console.error('Error adding schedule:', error)
-      );
-    }, 100);
-  }
 
   editDialogCreate = (dialog, fields, editAppointment) => {
     let subjectCodeContainer = ` <div>
@@ -147,7 +156,7 @@ export class firstSchedComponent implements AfterViewInit {
   };
 
   editDialogOpen = (dialog, fields, editAppointment) => {
-    fields.repeatContainer.hide();
+    // fields.repeatContainer.hide();
     fields.subject.hide();
     fields.subjectLabel.hide();
     fields.descriptionContainer.hide();
@@ -176,17 +185,9 @@ export class firstSchedComponent implements AfterViewInit {
   };
   views: any[] = [
     {
-      type: 'dayView',
-      timeRuler: { hidden: false, scaleStartHour: 6 },
-    },
-    {
       type: 'weekView',
       timeRuler: { hidden: false, scaleStartHour: 6 },
       allDay: false,
-    },
-    {
-      type: 'monthView',
-      timeRuler: { hidden: false, scaleStartHour: 6 },
     },
   ];
 }

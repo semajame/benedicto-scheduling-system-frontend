@@ -19,8 +19,10 @@
     "@angular/platform-browser": "^17.3.2",
     "@angular/platform-browser-dynamic": "^17.3.2",
     "@angular/router": "^17.3.2",
+    "html2canvas": "^1.4.1",
     "jquery": "^3.7.1",
     "jqwidgets-ng": "^19.2.2",
+    "jspdf": "^2.5.1",
     "rxjs": "^6.5.5",
     "tslib": "^2.0.0",
     "zone.js": "^0.14.4"

@@ -1,14 +1,61 @@
-import { Component, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, ViewChild, AfterViewInit, ElementRef } from '@angular/core';
 import { jqxSchedulerComponent } from 'jqwidgets-ng/jqxscheduler';
 import { SharedService } from 'src/app/shared.service';
+import { jsPDF } from 'jspdf';
+import html2canvas from 'html2canvas';
 
 @Component({
   templateUrl: 'firstSched.component.html',
 })
 export class firstSchedComponent implements AfterViewInit {
   @ViewChild('schedulerReference') scheduler: jqxSchedulerComponent;
+  @ViewChild('pdfContent') pdfContent: ElementRef;
 
   constructor(private sharedService: SharedService) {}
+
+  // makePDF() {
+  //   html2canvas(this.pdfContent.nativeElement).then((canvas) => {
+  //     const imgWidth = 210;
+  //     const pageHeight = 297;
+  //     const imgHeight = (canvas.height * imgWidth) / canvas.width;
+  //     const heightLeft = imgHeight;
+
+  //     const contentDataURL = canvas.toDataURL('image/png');
+  //     const pdf = new jsPDF('p', 'mm', 'a4');
+  //     const position = 0;
+  //     pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight);
+  //     pdf.save('scheduler.pdf');
+  //   });
+  // }
+
+  makePDF() {
+    html2canvas(this.pdfContent.nativeElement, { scale: 2 }).then((canvas) => {
+      const contentDataURL = canvas.toDataURL('image/png');
+      const pdf = new jsPDF('p', 'mm', 'a4');
+
+      const imgWidth = 210; // A4 width in mm
+      const imgHeight = (canvas.height * imgWidth) / canvas.width;
+      const pageHeight = 297; // A4 height in mm
+
+      // Calculate the number of pages needed
+      let position = 0;
+      let heightLeft = imgHeight;
+
+      // Add the first image
+      pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight);
+      heightLeft -= pageHeight;
+
+      // Add extra pages if necessary
+      while (heightLeft > 0) {
+        position = heightLeft - imgHeight;
+        pdf.addPage();
+        pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight);
+        heightLeft -= pageHeight;
+      }
+
+      pdf.save('scheduler.pdf');
+    });
+  }
 
   ngAfterViewInit(): void {
     this.scheduler.ensureAppointmentVisible('1');
@@ -147,6 +194,7 @@ export class firstSchedComponent implements AfterViewInit {
         <div class="jqx-scheduler-edit-dialog-label">Units</div>
         <div class="jqx-scheduler-edit-dialog-field">
           <select id="units" name="units">
+            <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
           </select>
@@ -164,6 +212,10 @@ export class firstSchedComponent implements AfterViewInit {
     fields.timeZoneContainer.hide();
     fields.allDayContainer.hide();
     fields.locationLabel.html('Location');
+
+    setTimeout(() => {
+      $(dialog).closest('.jqx-window').addClass('center-fixed-dialog');
+    }, 10);
 
     if (editAppointment) {
       const appointmentData = editAppointment.originalData;

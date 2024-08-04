@@ -3,21 +3,28 @@
     <h1>1st Year Schedule</h1>
     <p>This section can only be accessed by administrators.</p>
   </div>
+  <div>
+    <button (click)="makePDF()" class="btn btn-primary">
+      Download Schedule
+    </button>
+  </div>
 </div>
-<jqxScheduler
-  #schedulerReference
-  [date]="date"
-  [height]="600"
-  [width]="1300"
-  [source]="dataAdapter"
-  [showLegend]="true"
-  [view]="'weekView'"
-  [appointmentDataFields]="appointmentDataFields"
-  [resources]="resources"
-  [views]="views"
-  (onAppointmentAdd)="AppointmentAdd($event)"
-  [editDialogCreate]="editDialogCreate"
-  [editDialogOpen]="editDialogOpen"
-  style="margin: 0 auto"
->
-</jqxScheduler>
+<div #pdfContent class="mt-5">
+  <jqxScheduler
+    #schedulerReference
+    [date]="date"
+    [height]="2200"
+    [width]="1300"
+    [source]="dataAdapter"
+    [showLegend]="true"
+    [view]="'weekView'"
+    [appointmentDataFields]="appointmentDataFields"
+    [resources]="resources"
+    [views]="views"
+    (onAppointmentAdd)="AppointmentAdd($event)"
+    [editDialogCreate]="editDialogCreate"
+    [editDialogOpen]="editDialogOpen"
+    style="margin: 0 auto"
+  >
+  </jqxScheduler>
+</div>

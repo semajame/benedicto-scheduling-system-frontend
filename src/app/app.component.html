@@ -49,63 +49,15 @@
         class="nav-item nav-link d-flex gap-2 align-items-center text-light"
         >Prospectus</a
       >
-      <div
-        class="dropdown align-items-center nav-link nav-item"
+      <a
+        class="nav-item nav-link d-flex gap-2 align-items-center text-light"
         (click)="sharedService.closeDialogOnNavClick()"
+        routerLink="/schedule"
+        routerLinkActive="active"
         *ngIf="account.role === Role.Admin"
       >
-        <button
-          class="btn fs-6 d-flex align-items-center p-0 schedule-button gap-1 text-light nav-link nav-item"
-          type="button"
-          data-bs-toggle="dropdown"
-          aria-expanded="false"
-        >
-          Schedule
-          <img src="../assets/arrow-down.png" alt="Arrow Icon" />
-        </button>
-        <ul class="dropdown-menu align-items-center">
-          <li>
-            <a
-              class="dropdown-item"
-              *ngIf="account.role === Role.Admin"
-              routerLink="/schedule/1st-year"
-              routerLinkActive="active"
-              class="nav-item nav-link"
-              >1st Year</a
-            >
-          </li>
-          <li>
-            <a
-              class="dropdown-item"
-              *ngIf="account.role === Role.Admin"
-              routerLink="/schedule/2nd-year"
-              routerLinkActive="active"
-              class="nav-item nav-link"
-              >2nd Year</a
-            >
-          </li>
-          <li>
-            <a
-              class="dropdown-item"
-              *ngIf="account.role === Role.Admin"
-              routerLink="/schedule/3rdYear"
-              routerLinkActive="active"
-              class="nav-item nav-link"
-              >3rd Year</a
-            >
-          </li>
-          <li>
-            <a
-              class="dropdown-item"
-              *ngIf="account.role === Role.Admin"
-              routerLink="/schedule/4thYear"
-              routerLinkActive="active"
-              class="nav-item nav-link"
-              >4th Year</a
-            >
-          </li>
-        </ul>
-      </div>
+        Schedule
+      </a>
       <!-- <a
           *ngIf="account.role === Role.Admin"
           routerLink="/schedule"

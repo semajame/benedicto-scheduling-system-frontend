@@ -5,28 +5,13 @@ import { jsPDF } from 'jspdf';
 import html2canvas from 'html2canvas';
 
 @Component({
-  templateUrl: 'firstSched.component.html',
+  templateUrl: 'secondSched.component.html',
 })
-export class firstSchedComponent implements AfterViewInit {
-  @ViewChild('schedulerReference') scheduler: jqxSchedulerComponent;
+export class secondSchedComponent implements AfterViewInit {
+  @ViewChild('schedulerReference2') scheduler2: jqxSchedulerComponent;
   @ViewChild('pdfContent') pdfContent: ElementRef;
 
   constructor(private sharedService: SharedService) {}
-
-  // makePDF() {
-  //   html2canvas(this.pdfContent.nativeElement).then((canvas) => {
-  //     const imgWidth = 210;
-  //     const pageHeight = 297;
-  //     const imgHeight = (canvas.height * imgWidth) / canvas.width;
-  //     const heightLeft = imgHeight;
-
-  //     const contentDataURL = canvas.toDataURL('image/png');
-  //     const pdf = new jsPDF('p', 'mm', 'a4');
-  //     const position = 0;
-  //     pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight);
-  //     pdf.save('scheduler.pdf');
-  //   });
-  // }
 
   makePDF() {
     html2canvas(this.pdfContent.nativeElement, { scale: 2 }).then((canvas) => {
@@ -58,11 +43,11 @@ export class firstSchedComponent implements AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.scheduler.ensureAppointmentVisible('1');
+    this.scheduler2.ensureAppointmentVisible('1');
   }
 
   generateAppointments(): any {
-    this.sharedService.getSchedules().subscribe(
+    this.sharedService.getSecondSchedules().subscribe(
       (data) => {
         const appointments = data.map((event) => ({
           id: event.id.toString(),
@@ -80,7 +65,7 @@ export class firstSchedComponent implements AfterViewInit {
 
         this.source.localdata = appointments;
         this.dataAdapter = new jqx.dataAdapter(this.source);
-        this.scheduler.source(this.dataAdapter);
+        this.scheduler2.source(this.dataAdapter);
         console.log(this.source.localdata);
       },
       (error) => {
@@ -110,11 +95,11 @@ export class firstSchedComponent implements AfterViewInit {
 
     console.log('recurrncepattern: ', typeof appointment.recurrencePattern);
 
-    this.sharedService.addSchedule(newAppointment).subscribe(
+    this.sharedService.addSecondSchedule(newAppointment).subscribe(
       (response) => {
         appointment.id = response.id;
         this.source.localdata.push(appointment);
-        this.scheduler.source(this.dataAdapter);
+        this.scheduler2.source(this.dataAdapter);
         window.location.reload();
       },
       (error) => console.error('Error adding schedule:', error)

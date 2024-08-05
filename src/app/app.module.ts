@@ -13,14 +13,14 @@ import { AppComponent } from './app.component';
 import { AlertComponent } from './_components';
 import { HomeComponent } from './home';
 import { jqxSchedulerModule } from 'jqwidgets-ng/jqxscheduler';
-// import { SchedComponent } from './schedule/';
-import { firstSchedComponent } from './schedule/1st-year';
-import { secondSchedComponent } from './schedule/2nd-year';
-import { thirdSchedComponent } from './schedule/3rdYear';
-import { fourthSchedComponent } from './schedule/4thYear';
+
+// import { secondSchedComponent } from './schedule/2nd-year';
+// import { thirdSchedComponent } from './schedule/3rdYear';
+// import { fourthSchedComponent } from './schedule/4thYear';
 // import { TeacherRoutingComponent } from './teachers/teacher.component';
 // import { TeacherModule } from './teachers/teacher.module';
 import { prospectusModule } from './prospectus/prospectus.module';
+import { scheduleModule } from './schedule/schedule.module';
 
 @NgModule({
   imports: [
@@ -30,16 +30,18 @@ import { prospectusModule } from './prospectus/prospectus.module';
     AppRoutingModule,
     prospectusModule,
     // TeacherModule,
+    scheduleModule,
     jqxSchedulerModule,
   ],
   declarations: [
     AppComponent,
     AlertComponent,
     HomeComponent,
-    firstSchedComponent,
-    secondSchedComponent,
-    thirdSchedComponent,
-    fourthSchedComponent,
+    // firstSchedComponent,
+
+    // secondSchedComponent,
+    // thirdSchedComponent,
+    // fourthSchedComponent,
 
     // TeacherRoutingComponent,
   ],

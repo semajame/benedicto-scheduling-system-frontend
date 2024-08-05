@@ -4,6 +4,7 @@ import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
 import { HomeComponent } from './home';
 import { AuthGuard } from './_helpers';
 import { Role } from './_models';
+import { ScheduleComponent } from './schedule/schedule.component';
 import { firstSchedComponent } from './schedule/1st-year';
 import { secondSchedComponent } from './schedule/2nd-year';
 import { thirdSchedComponent } from './schedule/3rdYear';
@@ -20,6 +21,8 @@ const prospectusModule = () =>
   import('./prospectus/prospectus.module').then((x) => x.prospectusModule);
 const teachersModule = () =>
   import('./teachers/teacher.module').then((x) => x.TeacherModule);
+const scheduleModule = () =>
+  import('./schedule/schedule.module').then((x) => x.scheduleModule);
 
 const routes: Routes = [
   { path: '', component: HomeComponent, canActivate: [AuthGuard] },
@@ -43,29 +46,29 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
-    path: 'schedule/1st-year',
-    component: firstSchedComponent,
+    path: 'schedule',
+    loadChildren: scheduleModule,
     canActivate: [AuthGuard],
     data: { roles: [Role.Admin] },
   },
-  {
-    path: 'schedule/2nd-year',
-    component: secondSchedComponent,
-    canActivate: [AuthGuard],
-    data: { roles: [Role.Admin] },
-  },
-  {
-    path: 'schedule/3rdYear',
-    component: thirdSchedComponent,
-    canActivate: [AuthGuard],
-    data: { roles: [Role.Admin] },
-  },
-  {
-    path: 'schedule/4thYear',
-    component: fourthSchedComponent,
-    canActivate: [AuthGuard],
-    data: { roles: [Role.Admin] },
-  },
+  // {
+  //   path: 'schedule/2nd-year',
+  //   component: secondSchedComponent,
+  //   canActivate: [AuthGuard],
+  //   data: { roles: [Role.Admin] },
+  // },
+  // {
+  //   path: 'schedule/3rdYear',
+  //   component: thirdSchedComponent,
+  //   canActivate: [AuthGuard],
+  //   data: { roles: [Role.Admin] },
+  // },
+  // {
+  //   path: 'schedule/4thYear',
+  //   component: fourthSchedComponent,
+  //   canActivate: [AuthGuard],
+  //   data: { roles: [Role.Admin] },
+  // },
   { path: '**', redirectTo: '' },
 ];
 

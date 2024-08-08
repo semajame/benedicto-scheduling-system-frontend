@@ -84,12 +84,25 @@ export class firstSchedComponent implements AfterViewInit {
     const subject = $('#subject').val();
 
     const startDate = new Date(appointment.start);
-    // Get the day of the week (0 - Sunday, 1 - Monday, ..., 6 - Saturday)
-    const day = startDate.getDay();
 
     // If you need the name of the day instead of the numeric value
-    const daysOfWeek = ['Sunday', 'M', 'T', 'W', 'TH', 'F', 'S'];
-    const dayName = daysOfWeek[day];
+    const daysOfWeek = {
+      SU: 'Sunday',
+      MO: 'M',
+      TU: 'T',
+      WE: 'W',
+      TH: 'TH',
+      FR: 'F',
+      SA: 'S',
+    };
+
+    // Extract and parse the recurrence pattern to get the days of the week
+    const recurrencePattern = appointment.recurrencePattern?.toString() ?? '';
+    const matchedDays = recurrencePattern.match(/BYDAY=([^;]+)/);
+    const dayNames = matchedDays
+      ? matchedDays[1].split(',').map((day) => daysOfWeek[day])
+      : [daysOfWeek[startDate.getDay()]];
+    const dayName = dayNames.join(', '); // Combine day names, e.g., "M, T"
 
     const newAppointment = {
       subject_code: subject_code,
@@ -98,12 +111,13 @@ export class firstSchedComponent implements AfterViewInit {
       location: appointment.location,
       start: new Date(startDate),
       end: new Date(appointment.end),
-      recurrencePattern: appointment.recurrencePattern?.toString() ?? null,
-      day: dayName, // Add the day of the week
+      recurrencePattern: recurrencePattern,
+      day: dayName, // Add the combined day names
       background: appointment.background,
     };
 
-    console.log('recurrncepattern: ', typeof appointment.recurrencePattern);
+    console.log('Recurrence Pattern:', recurrencePattern);
+    console.log('Parsed Days:', dayNames);
 
     this.sharedService.addSchedule(newAppointment).subscribe(
       (response) => {

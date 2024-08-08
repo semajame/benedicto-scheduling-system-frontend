@@ -5,10 +5,10 @@ import { jsPDF } from 'jspdf';
 import html2canvas from 'html2canvas';
 
 @Component({
-  templateUrl: 'firstSched.component.html',
+  templateUrl: 'thirdSched.component.html',
 })
-export class firstSchedComponent implements AfterViewInit {
-  @ViewChild('schedulerReference') scheduler: jqxSchedulerComponent;
+export class thirdSchedComponent implements AfterViewInit {
+  @ViewChild('schedulerReference3') scheduler3: jqxSchedulerComponent;
   @ViewChild('pdfContent') pdfContent: ElementRef;
 
   constructor(private sharedService: SharedService) {}
@@ -43,11 +43,11 @@ export class firstSchedComponent implements AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.scheduler.ensureAppointmentVisible('1');
+    this.scheduler3.ensureAppointmentVisible('1');
   }
 
   generateAppointments(): any {
-    this.sharedService.getSchedules().subscribe(
+    this.sharedService.getThirdSchedules().subscribe(
       (data) => {
         const appointments = data.map((event) => ({
           id: event.id.toString(),
@@ -57,7 +57,6 @@ export class firstSchedComponent implements AfterViewInit {
           location: event.location,
           start: new Date(event.start),
           end: new Date(event.end),
-          day: event.dayName,
           draggable: false,
           resizable: false,
           recurrencePattern: event.recurrencePattern,
@@ -66,7 +65,7 @@ export class firstSchedComponent implements AfterViewInit {
 
         this.source.localdata = appointments;
         this.dataAdapter = new jqx.dataAdapter(this.source);
-        this.scheduler.source(this.dataAdapter);
+        this.scheduler3.source(this.dataAdapter);
         console.log(this.source.localdata);
       },
       (error) => {
@@ -83,33 +82,24 @@ export class firstSchedComponent implements AfterViewInit {
     const units = $('#units').val();
     const subject = $('#subject').val();
 
-    const startDate = new Date(appointment.start);
-    // Get the day of the week (0 - Sunday, 1 - Monday, ..., 6 - Saturday)
-    const day = startDate.getDay();
-
-    // If you need the name of the day instead of the numeric value
-    const daysOfWeek = ['Sunday', 'M', 'T', 'W', 'TH', 'F', 'S'];
-    const dayName = daysOfWeek[day];
-
     const newAppointment = {
       subject_code: subject_code,
       subject: subject,
       units: units,
       location: appointment.location,
-      start: new Date(startDate),
+      start: new Date(appointment.start),
       end: new Date(appointment.end),
-      recurrencePattern: appointment.recurrencePattern?.toString() ?? null,
-      day: dayName, // Add the day of the week
+      recurrencePattern: appointment.recurrencePattern.toString(),
       background: appointment.background,
     };
 
     console.log('recurrncepattern: ', typeof appointment.recurrencePattern);
 
-    this.sharedService.addSchedule(newAppointment).subscribe(
+    this.sharedService.addThirdSchedule(newAppointment).subscribe(
       (response) => {
         appointment.id = response.id;
         this.source.localdata.push(appointment);
-        this.scheduler.source(this.dataAdapter);
+        this.scheduler3.source(this.dataAdapter);
         window.location.reload();
       },
       (error) => console.error('Error adding schedule:', error)
@@ -125,7 +115,6 @@ export class firstSchedComponent implements AfterViewInit {
       { name: 'subject_code', type: 'string' },
       { name: 'units', type: 'string' },
       { name: 'location', type: 'string' },
-      { name: 'day', type: 'string' },
       { name: 'start', type: 'date' },
       { name: 'end', type: 'date' },
       { name: 'draggable', type: 'boolean' },
@@ -144,7 +133,6 @@ export class firstSchedComponent implements AfterViewInit {
     location: 'location',
     from: 'start',
     to: 'end',
-    day: 'day',
     draggable: 'draggable',
     resizable: 'resizable',
     recurrencePattern: 'recurrencePattern',

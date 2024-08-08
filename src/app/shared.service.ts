@@ -27,6 +27,10 @@ export class SharedService {
     return this.http.get<any[]>(`${this.APIUrl}/2nd-year`);
   }
 
+  getThirdSchedules(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.APIUrl}/3rd-year`);
+  }
+
   addSchedule(schedule: any): Observable<any> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.post<any>(`${this.APIUrl}/1st-year`, schedule, {
@@ -36,6 +40,10 @@ export class SharedService {
 
   addSecondSchedule(schedule: any): Observable<any> {
     return this.http.post<any>(`${this.APIUrl}/2nd-year`, schedule);
+  }
+
+  addThirdSchedule(schedule: any): Observable<any> {
+    return this.http.post<any>(`${this.APIUrl}/3rd-year`, schedule);
   }
 
   // updateSchedule(id: number, schedule: any): Observable<any> {

@@ -4,12 +4,12 @@ import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
 import { HomeComponent } from './home';
 import { AuthGuard } from './_helpers';
 import { Role } from './_models';
-import { ScheduleComponent } from './schedule/schedule.component';
-import { firstSchedComponent } from './schedule/1st-year';
-import { secondSchedComponent } from './schedule/2nd-year';
-import { thirdSchedComponent } from './schedule/3rdYear';
-import { fourthSchedComponent } from './schedule/4thYear';
-import { TeacherRoutingComponent } from './teachers';
+// import { ScheduleComponent } from './schedule/schedule.component';
+// import { firstSchedComponent } from './schedule/1st-year';
+// import { secondSchedComponent } from './schedule/2nd-year';
+// import { thirdSchedComponent } from './schedule/3rdYear';
+// import { fourthSchedComponent } from './schedule/4thYear';
+// import { TeacherRoutingComponent } from './teachers';
 
 const accountModule = () =>
   import('./account/account.module').then((x) => x.AccountModule);
